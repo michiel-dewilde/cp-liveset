@@ -1,0 +1,31 @@
+name: Publish to PyPI
+
+# Publishes to PyPI via Trusted Publishing (OIDC) whenever a GitHub Release is
+# published. No API token is stored: PyPI verifies the workflow's identity.
+#
+# One-time PyPI setup (see README / PyPI project settings):
+#   PyPI -> project "cp-liveset" -> Settings -> Publishing -> Add a new publisher
+#     Owner:       michiel-dewilde
+#     Repository:  cp-liveset
+#     Workflow:    publish.yml
+#     Environment: pypi
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    environment: pypi
+    permissions:
+      id-token: write   # required for Trusted Publishing (OIDC)
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+      - run: pip install build
+      - run: python -m build
+      - name: Publish distributions to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1

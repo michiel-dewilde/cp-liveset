@@ -49,3 +49,15 @@ jobs:
       - run: pip install build twine
       - run: python -m build
       - run: twine check dist/*
+
+  # Single aggregating gate so branch protection can require just one stable
+  # context ("CI success") instead of every brittle matrix cell.
+  ci-success:
+    name: CI success
+    if: always()
+    needs: [lint, test, build]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Verify all required jobs passed
+        if: ${{ contains(needs.*.result, 'failure') || contains(needs.*.result, 'cancelled') }}
+        run: exit 1
