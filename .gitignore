@@ -1,0 +1,25 @@
+# scratch / working files (not part of the package)
+/tmp/
+
+# Python virtual environment
+.venv/
+
+# Python build/cache artifacts
+__pycache__/
+*.pyc
+*.egg-info/
+build/
+dist/
+.pytest_cache/
+
+# editor / tool directories
+.claude/
+.vscode/
+
+# editor / OS backup & temp files
+*~
+*.bak
+*.swp
+*.tmp
+.DS_Store
+Thumbs.db

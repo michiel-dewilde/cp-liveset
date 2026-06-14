@@ -1,0 +1,16 @@
+# Pre-commit hooks. Enable once with:  pre-commit install
+#
+# This runs ruff's linter on commit. It is report-only: it flags problems and
+# blocks the commit, but never modifies your files. The rule set lives in
+# pyproject.toml ([tool.ruff.lint]).
+#
+#   - To auto-apply ruff's *safe* fixes (e.g. removing unused imports) on
+#     commit, add `args: [--fix]` to the ruff-check hook below.
+#   - To also normalize formatting (this rewrites code layout), uncomment the
+#     ruff-format hook. Run it once on its own first and review the diff.
+repos:
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.15.17
+    hooks:
+      - id: ruff-check
+      # - id: ruff-format

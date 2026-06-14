@@ -1,0 +1,70 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "cp-liveset"
+version = "1.0.0"
+description = "Manage Yamaha CP88/CP73 Live Set data over MIDI and YSFC (.X9A/.X9L/.X9P/.X9S) files"
+readme = "README.md"
+requires-python = ">=3.9"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{ name = "Michiel De Wilde" }]
+keywords = [
+    "yamaha", "cp88", "cp73", "stage piano", "live set",
+    "midi", "sysex", "ysfc", "bulk dump", "patch librarian",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Environment :: Console",
+    "Intended Audience :: End Users/Desktop",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Topic :: Multimedia :: Sound/Audio :: MIDI",
+    "Typing :: Typed",
+]
+dependencies = [
+    "mido",
+    "pydantic>=2",
+    "ruamel.yaml",
+]
+
+[project.optional-dependencies]
+rtmidi = [
+    "python-rtmidi",
+]
+test = [
+    "pytest",
+]
+dev = [
+    "ruff",
+    "pre-commit",
+]
+
+[project.urls]
+Homepage = "https://github.com/michiel-dewilde/cp-liveset"
+Repository = "https://github.com/michiel-dewilde/cp-liveset"
+Issues = "https://github.com/michiel-dewilde/cp-liveset/issues"
+
+[project.scripts]
+cp-liveset = "cp_liveset.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/cp_liveset"]
+
+[tool.ruff]
+target-version = "py39"
+line-length = 100
+
+[tool.ruff.lint]
+# Default rule set (pyflakes `F` + a subset of pycodestyle errors). This
+# deliberately excludes line-length (`E501`), import sorting (`I`), and the
+# formatter, so ruff only flags real problems and never reformats the code.
+select = ["E4", "E7", "E9", "F"]
